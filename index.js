@@ -4,9 +4,9 @@ const seccionInactive = document.querySelector(".catalogo-inactive");
 const botonActive = document.querySelector(".btn-active");
 const botonInactive = document.querySelector(".btn-inactive");
 const botonAll = document.querySelector(".btn-all");
-const botonSun=document.querySelector(".btn-sun");
-const botonMoon=document.querySelector(".btn-moon");
-const seccionBody=document.querySelector("body");
+const botonSun = document.querySelector(".btn-sun");
+const botonMoon = document.querySelector(".btn-moon");
+const seccionBody = document.querySelector("body");
 
 let catalogo = [];
 
@@ -62,23 +62,10 @@ function mostrarCatalogo(catalogoFiltrado, seccion) {
                 catalogo.splice(index, 1);
                 mostrarCatalogo(catalogo, seccion);
             }
-    });
+        });
         seccion.append(divExtension);
     });
 }
-
-// Mostrar todo
-botonAll.addEventListener("click", borrarFiltro);
-
-// Filtrar por activo
-botonActive.addEventListener("click", () => {
-    filtrarExtensiones(seccionActive, true);
-});
-
-// Filtrar por inactivo
-botonInactive.addEventListener("click", () => {
-    filtrarExtensiones(seccionInactive, false);
-});
 
 // Filtrar extensiones
 function filtrarExtensiones(seccion, estadoActivo) {
@@ -101,21 +88,21 @@ function borrarFiltro() {
 const botones = document.querySelectorAll(".boton");
 
 botonAll.addEventListener("click", () => {
-  borrarFiltro();
-  marcarBotonActivo(botonAll);
+    borrarFiltro();
+    marcarBotonActivo(botonAll);
 });
 
 botonActive.addEventListener("click", () => {
-  filtrarExtensiones(seccionActive, true);
-  marcarBotonActivo(botonActive);
+    filtrarExtensiones(seccionActive, true);
+    marcarBotonActivo(botonActive);
 });
 
 botonInactive.addEventListener("click", () => {
-  filtrarExtensiones(seccionInactive, false);
-  marcarBotonActivo(botonInactive);
+    filtrarExtensiones(seccionInactive, false);
+    marcarBotonActivo(botonInactive);
 });
 
 function marcarBotonActivo(botonSeleccionado) {
-  botones.forEach(boton => boton.classList.remove("activo"));
-  botonSeleccionado.classList.add("activo");
+    botones.forEach(boton => boton.classList.remove("activo"));
+    botonSeleccionado.classList.add("activo");
 }
