@@ -1,0 +1,98 @@
+.ocultar {
+    display: none;
+}
+
+.dark {
+    background-color: black;
+    color: white;
+}
+
+body {
+    background-color: white;
+    color: black;
+    font-family: "Noto Sans", sans-serif;
+}
+
+.logo-container {
+    display: flex;
+    justify-content: space-between;
+    margin: 30px 50px 30px 50px;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.logo-container button {
+    border: none;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.botones-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 50px 30px 50px;
+}
+
+
+.boton {
+    background-color: #ddd;
+    color: #333;
+    border: none;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.boton.activo {
+    background-color: #007bff;
+    /* o lo que te guste */
+    color: white;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 40px;
+    height: 20px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    inset: 0;
+    background-color: #1e1e2f;
+    border-radius: 34px;
+    transition: background-color 0.3s;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 14px;
+    width: 14px;
+    left: 3px;
+    bottom: 3px;
+    background-color: #ff4b5c;
+    /* Color círculo inactivo */
+    border-radius: 50%;
+    transition: transform 0.3s, background-color 0.3s;
+}
+
+/* Checked State */
+input:checked+.slider {
+    background-color: #1e1e2f;
+}
+
+input:checked+.slider:before {
+    transform: translateX(20px);
+    background-color: #20e3b2;
+    /* Color círculo activo */
+}
