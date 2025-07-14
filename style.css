@@ -7,37 +7,37 @@
     color: white;
 }
 
-.dark .logo-container{
+.dark .logo-container {
     background-color: hsl(226, 25%, 17%);
 }
 
-.btn-sun{
+.btn-sun {
     background-color: hsl(225, 23%, 24%);
 }
 
-.btn-sun:hover{
+.btn-sun:hover {
     background-color: hsl(226, 11%, 37%);
 }
 
-.dark .boton{
-    background-color:hsl(225, 23%, 24%) ;
+.dark .boton {
+    background-color: hsl(225, 23%, 24%);
     color: hsl(200, 60%, 99%);
     border: 1px solid hsl(226, 11%, 37%);
 }
 
-.dark .catalogo-item{
+.dark .catalogo-item {
     background-color: hsl(226, 25%, 17%);
     border: 1px solid hsl(226, 11%, 37%);
 }
 
-.dark .container-borrar button{
-    background-color:hsl(225, 23%, 24%) ;
+.dark .container-borrar button {
+    background-color: hsl(225, 23%, 24%);
     color: hsl(200, 60%, 99%);
     border: 1px solid hsl(226, 11%, 37%);
 }
 
-.dark .container-borrar button:hover{
-    background-color:hsl(3, 77%, 44%);
+.dark .container-borrar button:hover {
+    background-color: hsl(3, 77%, 44%);
     color: hsl(227, 75%, 14%);
 }
 
@@ -48,22 +48,22 @@ body {
     font-family: "Noto Sans", sans-serif;
 }
 
-.container-image{
+.container-image {
     display: flex;
 }
 
-.container-image img{
+.container-image img {
     margin-right: 15px;
 }
 
-.container-borrar{
+.container-borrar {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-top: 10px;
 }
 
-.container-borrar button{
+.container-borrar button {
 
     color: #333;
     border: 1px solid hsla(226, 15%, 61%, 0.637);
@@ -74,12 +74,12 @@ body {
     font-family: "Noto Sans", sans-serif;
 }
 
-.container-borrar button:focus{
+.container-borrar button:focus {
     border: 2px solid hsl(3, 77%, 44%);
 }
 
-.container-borrar button:hover{
-    background-color:  hsl(3, 77%, 44%);
+.container-borrar button:hover {
+    background-color: hsl(3, 77%, 44%);
     color: hsl(200, 60%, 99%);
 }
 
@@ -121,7 +121,7 @@ body {
     margin: 0px 50px;
 }
 
-.botones-container h2{
+.botones-container h2 {
     margin-bottom: 0;
 }
 
@@ -137,7 +137,7 @@ body {
     font-family: "Noto Sans", sans-serif;
 }
 
-.boton:hover{
+.boton:hover {
     background-color: hsl(3, 77%, 44%);
     color: white;
 }
@@ -191,4 +191,15 @@ input:checked+.slider:before {
     transform: translateX(20px);
     background-color: #20e3b2;
     /* Color círculo activo */
+}
+
+@media (max-width: 550px) {
+    .botones-container {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .botones-container h2{
+        margin-bottom: 10px;
+    }
 }
