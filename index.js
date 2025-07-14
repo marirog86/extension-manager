@@ -1,6 +1,4 @@
-const seccionAll = document.querySelector(".catalogo-all");
-const seccionActive = document.querySelector(".catalogo-active");
-const seccionInactive = document.querySelector(".catalogo-inactive");
+const seccionCatalogo = document.querySelector(".catalogo");
 const botonActive = document.querySelector(".btn-active");
 const botonInactive = document.querySelector(".btn-inactive");
 const botonAll = document.querySelector(".btn-all");
@@ -22,83 +20,69 @@ function cambiarVista() {
 
 // Cargar el JSON
 fetch("./data.json")
-    .then((respuesta) => respuesta.json())
-    .then((datos) => {
+    .then(res => res.json())
+    .then(datos => {
         catalogo = datos;
-        mostrarCatalogo(catalogo, seccionAll);
+        mostrarCatalogo(catalogo);
     });
 
-// Función para mostrar extensiones en una sección
-function mostrarCatalogo(catalogoFiltrado, seccion) {
-    seccion.innerHTML = '';
+// Mostrar extensiones en el DOM
+function mostrarCatalogo(catalogoFiltrado) {
+    seccionCatalogo.innerHTML = '';
 
     catalogoFiltrado.forEach((extension, index) => {
         const divExtension = document.createElement("div");
-        divExtension.className = `catalogo-item`;
+        divExtension.className = "catalogo-item";
         divExtension.innerHTML = `
-        <img src=${extension.logo} alt="">
-        <h3>${extension.name}</h3>
-        <p>${extension.description}</p>
-        <button data-id="${extension.id}">Remove</button>
-        <label class="switch">
-            <input type="checkbox" ${extension.isActive ? "checked" : ""} data-index="${index}">
-            <span class="slider"></span>
-        </label>
+      <img src="${extension.logo}" alt="">
+      <h3>${extension.name}</h3>
+      <p>${extension.description}</p>
+      <button data-id="${extension.id}">Remove</button>
+      <label class="switch">
+        <input type="checkbox" ${extension.isActive ? "checked" : ""} data-index="${index}">
+        <span class="slider"></span>
+      </label>
     `;
 
-        // Escuchamos el cambio del switch
+        // Switch de estado activo/inactivo
         const checkbox = divExtension.querySelector("input[type='checkbox']");
         checkbox.addEventListener("change", (e) => {
             const idx = e.target.dataset.index;
             catalogo[idx].isActive = e.target.checked;
         });
 
-        //escuchamos el boton eliminar
+        // Botón eliminar
         const botonEliminar = divExtension.querySelector("button");
         botonEliminar.addEventListener("click", (e) => {
             const id = e.target.dataset.id;
             const index = catalogo.findIndex(ext => ext.id === id);
             if (index !== -1) {
                 catalogo.splice(index, 1);
-                mostrarCatalogo(catalogo, seccion);
+                mostrarCatalogo(catalogo); // Volver a mostrar todo (o lo actual)
             }
         });
-        seccion.append(divExtension);
+
+        seccionCatalogo.append(divExtension);
     });
 }
 
-// Filtrar extensiones
-function filtrarExtensiones(seccion, estadoActivo) {
-    seccionAll.classList.add("ocultar");
-    seccionActive.classList.add("ocultar");
-    seccionInactive.classList.add("ocultar");
-
-    const catalogoFiltrado = catalogo.filter(ext => ext.isActive === estadoActivo);
-    mostrarCatalogo(catalogoFiltrado, seccion);
-    seccion.classList.remove("ocultar");
-}
-
-// Mostrar todo nuevamente
-function borrarFiltro() {
-    seccionAll.classList.remove("ocultar");
-    seccionActive.classList.add("ocultar");
-    seccionInactive.classList.add("ocultar");
-}
-
+// Botones de filtro
 const botones = document.querySelectorAll(".boton");
 
 botonAll.addEventListener("click", () => {
-    borrarFiltro();
+    mostrarCatalogo(catalogo);
     marcarBotonActivo(botonAll);
 });
 
 botonActive.addEventListener("click", () => {
-    filtrarExtensiones(seccionActive, true);
+    const activos = catalogo.filter(ext => ext.isActive);
+    mostrarCatalogo(activos);
     marcarBotonActivo(botonActive);
 });
 
 botonInactive.addEventListener("click", () => {
-    filtrarExtensiones(seccionInactive, false);
+    const inactivos = catalogo.filter(ext => !ext.isActive);
+    mostrarCatalogo(inactivos);
     marcarBotonActivo(botonInactive);
 });
 
