@@ -3,14 +3,84 @@
 }
 
 .dark {
-    background-color: black;
+    background: linear-gradient(180deg, #040918 0%, #091540 100%);
     color: white;
 }
+
+.dark .logo-container{
+    background-color: hsl(226, 25%, 17%);
+}
+
+.btn-sun{
+    background-color: hsl(225, 23%, 24%);
+}
+
+.btn-sun:hover{
+    background-color: hsl(226, 11%, 37%);
+}
+
+.dark .boton{
+    background-color:hsl(225, 23%, 24%) ;
+    color: hsl(200, 60%, 99%);
+    border: 1px solid hsl(226, 11%, 37%);
+}
+
+.dark .catalogo-item{
+    background-color: hsl(226, 25%, 17%);
+    border: 1px solid hsl(226, 11%, 37%);
+}
+
+.dark .container-borrar button{
+    background-color:hsl(225, 23%, 24%) ;
+    color: hsl(200, 60%, 99%);
+    border: 1px solid hsl(226, 11%, 37%);
+}
+
+.dark .container-borrar button:hover{
+    background-color:hsl(3, 77%, 44%);
+    color: hsl(227, 75%, 14%);
+}
+
 
 body {
     background-color: white;
     color: hsl(227, 75%, 14%);
     font-family: "Noto Sans", sans-serif;
+}
+
+.container-image{
+    display: flex;
+}
+
+.container-image img{
+    margin-right: 15px;
+}
+
+.container-borrar{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.container-borrar button{
+
+    color: #333;
+    border: 1px solid hsla(226, 15%, 61%, 0.637);
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    border-radius: 15px;
+    font-family: "Noto Sans", sans-serif;
+}
+
+.container-borrar button:focus{
+    border: 2px solid hsl(3, 77%, 44%);
+}
+
+.container-borrar button:hover{
+    background-color:  hsl(3, 77%, 44%);
+    color: hsl(200, 60%, 99%);
 }
 
 .catalogo {
@@ -65,6 +135,11 @@ body {
     transition: background-color 0.3s;
     border-radius: 15px;
     font-family: "Noto Sans", sans-serif;
+}
+
+.boton:hover{
+    background-color: hsl(3, 77%, 44%);
+    color: white;
 }
 
 .boton.activo {

@@ -34,14 +34,20 @@ function mostrarCatalogo(catalogoFiltrado) {
         const divExtension = document.createElement("div");
         divExtension.className = "catalogo-item";
         divExtension.innerHTML = `
-      <img src="${extension.logo}" alt="">
-      <h3>${extension.name}</h3>
-      <p>${extension.description}</p>
-      <button data-id="${extension.id}">Remove</button>
-      <label class="switch">
-        <input type="checkbox" ${extension.isActive ? "checked" : ""} data-index="${index}">
-        <span class="slider"></span>
-      </label>
+        <div class="container-image">
+        <img src="${extension.logo}" alt="">
+        <div class="container-description">
+        <h3>${extension.name}</h3>
+        <p>${extension.description}</p>
+        </div>
+        </div>
+        <div class="container-borrar">
+        <button data-id="${extension.id}">Remove</button>
+        <label class="switch">
+            <input type="checkbox" ${extension.isActive ? "checked" : ""} data-index="${index}">
+            <span class="slider"></span>
+        </label>
+        </div>
     `;
 
         // Switch de estado activo/inactivo
