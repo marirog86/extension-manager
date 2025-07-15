@@ -7,6 +7,7 @@ const botonMoon = document.querySelector(".btn-moon");
 const seccionBody = document.querySelector("body");
 
 let catalogo = [];
+let filtroActual = "all";
 
 // Cambiar vista claro/oscuro
 botonSun.addEventListener("click", cambiarVista);
@@ -23,8 +24,31 @@ fetch("./data.json")
     .then(res => res.json())
     .then(datos => {
         catalogo = datos;
-        mostrarCatalogo(catalogo);
+        refrescarCatalogoFiltrado(); // muestra según filtroActual = "all"
+    })
+    .catch(err => {
+        console.error("Error al cargar el JSON:", err);
+        seccionCatalogo.innerHTML = "<p>Error al cargar los datos.</p>";
     });
+
+// Refresca la lista según el filtro actual
+function refrescarCatalogoFiltrado() {
+    let datosAMostrar;
+    switch (filtroActual) {
+        case "active":
+            datosAMostrar = catalogo.filter(ext => ext.isActive);
+            marcarBotonActivo(botonActive);
+            break;
+        case "inactive":
+            datosAMostrar = catalogo.filter(ext => !ext.isActive);
+            marcarBotonActivo(botonInactive);
+            break;
+        default:
+            datosAMostrar = catalogo;
+            marcarBotonActivo(botonAll);
+    }
+    mostrarCatalogo(datosAMostrar);
+}
 
 // Mostrar extensiones en el DOM
 function mostrarCatalogo(catalogoFiltrado) {
@@ -35,26 +59,30 @@ function mostrarCatalogo(catalogoFiltrado) {
         divExtension.className = "catalogo-item";
         divExtension.innerHTML = `
         <div class="container-image">
-        <img src="${extension.logo}" alt="">
-        <div class="container-description">
-        <h3>${extension.name}</h3>
-        <p>${extension.description}</p>
-        </div>
+            <img src="${extension.logo}" alt="">
+            <div class="container-description">
+                <h3>${extension.name}</h3>
+                <p>${extension.description}</p>
+            </div>
         </div>
         <div class="container-borrar">
-        <button data-id="${extension.id}">Remove</button>
-        <label class="switch">
-            <input type="checkbox" ${extension.isActive ? "checked" : ""} data-index="${index}">
-            <span class="slider"></span>
-        </label>
+            <button data-id="${extension.id}">Remove</button>
+            <label class="switch">
+                <input type="checkbox" ${extension.isActive ? "checked" : ""} data-id="${extension.id}">
+                <span class="slider"></span>
+            </label>
         </div>
     `;
 
         // Switch de estado activo/inactivo
         const checkbox = divExtension.querySelector("input[type='checkbox']");
         checkbox.addEventListener("change", (e) => {
-            const idx = e.target.dataset.index;
-            catalogo[idx].isActive = e.target.checked;
+            const id = e.target.dataset.id;
+            const ext = catalogo.find(ext => ext.id === id);
+            if (ext) {
+                ext.isActive = e.target.checked;
+                refrescarCatalogoFiltrado();
+            }
         });
 
         // Botón eliminar
@@ -64,7 +92,7 @@ function mostrarCatalogo(catalogoFiltrado) {
             const index = catalogo.findIndex(ext => ext.id === id);
             if (index !== -1) {
                 catalogo.splice(index, 1);
-                mostrarCatalogo(catalogo); // Volver a mostrar todo (o lo actual)
+                refrescarCatalogoFiltrado();
             }
         });
 
@@ -73,26 +101,25 @@ function mostrarCatalogo(catalogoFiltrado) {
 }
 
 // Botones de filtro
-const botones = document.querySelectorAll(".boton");
-
 botonAll.addEventListener("click", () => {
-    mostrarCatalogo(catalogo);
-    marcarBotonActivo(botonAll);
+    filtroActual = "all";
+    refrescarCatalogoFiltrado();
 });
 
 botonActive.addEventListener("click", () => {
-    const activos = catalogo.filter(ext => ext.isActive);
-    mostrarCatalogo(activos);
-    marcarBotonActivo(botonActive);
+    filtroActual = "active";
+    refrescarCatalogoFiltrado();
 });
 
 botonInactive.addEventListener("click", () => {
-    const inactivos = catalogo.filter(ext => !ext.isActive);
-    mostrarCatalogo(inactivos);
-    marcarBotonActivo(botonInactive);
+    filtroActual = "inactive";
+    refrescarCatalogoFiltrado();
 });
 
 function marcarBotonActivo(botonSeleccionado) {
-    botones.forEach(boton => boton.classList.remove("activo"));
+    document.querySelectorAll(".boton").forEach(boton =>
+        boton.classList.remove("activo")
+    );
     botonSeleccionado.classList.add("activo");
 }
+
